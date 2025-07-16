@@ -1,0 +1,27 @@
+/* Hide mix & match child products on home page and category pages */
+.widget-products-with-category .product-inner .mix-and-match-container,
+.bb-products-listing .product-inner .mix-and-match-container,
+.product-blocks-listing .product-inner .mix-and-match-container {
+    display: none !important;
+}
+
+/* Ensure mix & match products have the same clean card appearance as simple products */
+.widget-products-with-category .product-inner,
+.bb-products-listing .product-inner,
+.product-blocks-listing .product-inner {
+    height: 100%;
+}
+
+/* Add a badge to identify mix & match products */
+.product-inner[data-mix-and-match="1"] .product-thumbnail::after {
+    content: "Mix & Match";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #28a745;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    z-index: 2;
+}

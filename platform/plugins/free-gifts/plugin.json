@@ -1,0 +1,10 @@
+{
+    "id": "botble/free-gifts",
+    "name": "Free Gifts",
+    "namespace": "Botble\\FreeGifts\\",
+    "provider": "Botble\\FreeGifts\\Providers\\FreeGiftsServiceProvider",
+    "author": "Botble",
+    "url": "https://botble.com",
+    "version": "1.0.0",
+    "description": "Free Gifts plugin allows you to offer free gift products with customer purchases"
+}

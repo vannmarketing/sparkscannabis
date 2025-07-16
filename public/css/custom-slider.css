@@ -1,0 +1,85 @@
+/* Custom CSS to control slider height for different devices with stronger selectors */
+
+/* Reset any max-height limitations */
+.simple-slider-wrapper .owl-slider .slider-item,
+.simple-slider-wrapper .owl-slider,
+.slider-item,
+.owl-carousel .slider-item,
+.owl-carousel .owl-item .slider-item,
+.owl-carousel .owl-stage-outer,
+.owl-carousel .owl-stage {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Default (Desktop) slider height */
+.simple-slider-wrapper .owl-slider .slider-item,
+.simple-slider-wrapper .owl-slider,
+.slider-item,
+.owl-carousel .slider-item,
+.owl-carousel .owl-item .slider-item {
+    height: 600px !important; /* Default height for desktop */
+}
+
+.simple-slider-wrapper .owl-slider .slider-item img,
+.slider-item img,
+.owl-carousel .slider-item img,
+.owl-carousel .owl-item .slider-item img,
+.owl-carousel .owl-item img {
+    height: 100% !important;
+    object-fit: cover !important; /* This ensures the image covers the area without distortion */
+    width: 100% !important;
+}
+
+/* Ensure the slider container has the same height */
+.simple-slider-wrapper .owl-slider {
+    height: 600px; /* Should match the height set above */
+}
+
+/* Make sure the carousel navigation stays in the right position */
+.simple-slider-wrapper .owl-slider .owl-dots,
+.owl-carousel .owl-dots {
+    position: absolute !important;
+    bottom: 20px !important;
+    width: 100% !important;
+    z-index: 10 !important;
+}
+
+/* Large Desktop screens (1200px and above) */
+@media (min-width: 1200px) {
+    .simple-slider-wrapper .owl-slider .slider-item,
+    .simple-slider-wrapper .owl-slider,
+    .slider-item,
+    .owl-carousel .slider-item,
+    .owl-carousel .owl-item .slider-item {
+        height: 1200px !important;
+    }
+}
+
+/* Medium screens (tablets, 768px to 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .simple-slider-wrapper .owl-slider .slider-item,
+    .simple-slider-wrapper .owl-slider,
+    .slider-item,
+    .owl-carousel .slider-item,
+    .owl-carousel .owl-item .slider-item {
+        height: 500px !important;
+    }
+}
+
+/* Small screens (mobile phones, less than 768px) */
+@media (max-width: 767px) {
+    .simple-slider-wrapper .owl-slider .slider-item,
+    .simple-slider-wrapper .owl-slider,
+    .slider-item,
+    .owl-carousel .slider-item,
+    .owl-carousel .owl-item .slider-item {
+        height: 700px !important;
+    }
+    
+    /* Adjust dot navigation position for mobile */
+    .simple-slider-wrapper .owl-slider .owl-dots,
+    .owl-carousel .owl-dots {
+        bottom: 10px !important;
+    }
+}

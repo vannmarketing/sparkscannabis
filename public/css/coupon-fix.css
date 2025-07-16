@@ -1,0 +1,106 @@
+/* Coupon Application Loading Styles */
+.coupon-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+}
+
+.coupon-loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #e84c3d;
+    border-radius: 50%;
+    animation: coupon-spin 1s linear infinite;
+}
+
+@keyframes coupon-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.coupon-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 4px;
+    z-index: 10000;
+    animation: slide-in 0.5s ease-out;
+    max-width: 90%;
+    word-wrap: break-word;
+}
+
+.coupon-message.success {
+    background-color: #4caf50;
+    color: white;
+}
+
+.coupon-message.error {
+    background-color: #f44336;
+    color: white;
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Disable pointer events during loading */
+.loading-coupon {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Style improvements for coupon buttons */
+.apply-coupon-code,
+[data-bb-toggle="apply-coupon-code"] {
+    position: relative;
+    min-width: 80px;
+    transition: all 0.3s ease;
+}
+
+.apply-coupon-code:disabled,
+[data-bb-toggle="apply-coupon-code"]:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+    .coupon-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .apply-coupon-code,
+    [data-bb-toggle="apply-coupon-code"] {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px; /* Larger touch target for mobile */
+    }
+
+    .coupon-message {
+        top: auto;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        text-align: center;
+    }
+}

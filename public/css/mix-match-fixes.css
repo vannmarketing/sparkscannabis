@@ -1,0 +1,66 @@
+/**
+ * CSS fixes for Mix and Match products on archive pages
+ */
+
+/* Hide product-bottom-box for Mix and Match products */
+.product-inner.mix-match-hidden .product-bottom-box {
+    display: none !important;
+}
+
+/* Hide mix-and-match-container on archive pages */
+.shop-products-listing .mix-and-match-container {
+    display: none !important;
+}
+
+/* Hide on hover states too */
+.product-inner.mix-match-hidden:hover .product-bottom-box,
+.shop-products-listing .product-inner:hover .mix-and-match-container {
+    display: none !important;
+}
+
+/**
+ * Fixes for Mix and Match product detail page tables
+ */
+
+/* Hide the price column in Mix and Match tables */
+.mix-and-match-container table th:nth-child(3),
+.mix-and-match-container table td:nth-child(3) {
+    display: none !important;
+}
+
+/* Stretch out the product name column */
+.mix-and-match-container table th:nth-child(2),
+.mix-and-match-container table td:nth-child(2) {
+    width: 45% !important;
+}
+
+/* Adjust the image column width */
+.mix-and-match-container table th:nth-child(1),
+.mix-and-match-container table td:nth-child(1) {
+    width: 10% !important;
+}
+
+/* Adjust the quantity column width */
+.mix-and-match-container table th:nth-child(4),
+.mix-and-match-container table td:nth-child(4) {
+    width: 45% !important;
+}
+
+/* Make the table more responsive */
+.mix-and-match-container table {
+    width: 100% !important;
+    table-layout: fixed !important;
+}
+
+/* Improve product name display */
+.mix-and-match-container .product-name {
+    font-weight: bold;
+    padding-right: 15px;
+}
+
+/* Style variation attributes */
+.mix-and-match-container .variation-attributes {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+}

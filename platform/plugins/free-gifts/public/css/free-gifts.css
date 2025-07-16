@@ -1,0 +1,150 @@
+.free-gifts-eligibility-notice {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.free-gifts-eligibility-notice:hover {
+    background-color: #e9ecef;
+}
+
+.free-gifts-eligibility-notice i {
+    font-size: 18px;
+    margin-right: 10px;
+    color: #dc3545;
+}
+
+.free-gifts-modal-content h4 {
+    margin-bottom: 15px;
+}
+
+.free-gifts-modal-content p {
+    margin-bottom: 20px;
+}
+
+.gift-item {
+    margin-bottom: 15px;
+}
+
+.gift-card {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.gift-image {
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+}
+
+.gift-image img {
+    max-width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+}
+
+.gift-details {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.gift-details h5 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.gift-quantity-wrapper {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.gift-quantity-wrapper label {
+    margin-right: 10px;
+    margin-bottom: 0;
+}
+
+.gift-quantity {
+    width: 60px;
+    text-align: center;
+}
+
+.add-gift-btn, .remove-gift-btn, .add-selected-gift-btn {
+    margin-top: auto;
+}
+
+.free-gifts-carousel .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.free-gifts-carousel .gift-item {
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.free-gifts-dropdown {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.free-gifts-dropdown .gift-quantity-wrapper {
+    margin-top: 15px;
+}
+
+.free-gifts-table .gift-quantity {
+    width: 60px;
+}
+
+/* Free gift label in cart */
+.cart-item .free-gift-label {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+/* Progress bar for gift selection */
+.gift-progress-container {
+    margin-bottom: 20px;
+}
+
+.gift-progress-bar {
+    height: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.gift-progress-fill {
+    height: 100%;
+    background-color: #28a745;
+    transition: width 0.3s ease;
+}
+
+.gift-progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #6c757d;
+}

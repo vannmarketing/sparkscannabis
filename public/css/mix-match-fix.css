@@ -1,0 +1,21 @@
+/* Fix for Mix and Match products in category view on mobile */
+@media (max-width: 767px) {
+    /* Hide the "Select your items" sections and tables in product listings */
+    .shop-products-listing .product-inner table,
+    .shop-products-listing .product-inner .variation,
+    .shop-products-listing .product-inner tr:has(img),
+    .shop-products-listing .product-inner div:has(table) {
+        display: none !important;
+    }
+    
+    /* Hide any div containing "Select your items" or "Select between" text */
+    .shop-products-listing .product-inner div:has-text("Select your items"),
+    .shop-products-listing .product-inner div:has-text("Select between") {
+        display: none !important;
+    }
+    
+    /* Hide header rows for product selection tables */
+    .shop-products-listing .product-inner div:has(div:nth-child(1):contains("Image")):has(div:nth-child(2):contains("Product")):has(div:nth-child(3):contains("Price")) {
+        display: none !important;
+    }
+}

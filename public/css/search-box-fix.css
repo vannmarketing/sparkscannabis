@@ -1,0 +1,54 @@
+/**
+ * Custom CSS for search box styling
+ * Adds red border color to match the primary theme color
+ */
+
+/* Direct targeting of the search form container */
+form[role="search"],
+.header_center form,
+div.header-items div.header_center form,
+.header-items .header_center form {
+    border: 1px solid #e06666 !important;
+}
+
+/* From the screenshot, target the exact element structure */
+div.header-items div.header_center form.form-quick-search {
+    border: 1px solid #e06666 !important;
+}
+
+/* Target the search input to ensure it has transparent borders */
+.header_center input[type="search"],
+input.bb-form-quick-search {
+    border-color: transparent !important;
+}
+
+/* Target the container with the class visible in screenshot */
+.header_center .form-group,
+div.form-group.form-quick-search {
+    border-color: #e06666 !important;
+}
+
+/* Target the search container directly with the class from screenshot */
+.container-xxxl .header-wrapper .header_center form,
+.header-items .header_center > form,
+form[action*="search-products"] {
+    border: 1px solid #e06666 !important;
+}
+
+/* Ensure the border color persists on focus */
+.header_center form:focus-within {
+    border-color: #e06666 !important;
+    outline-color: #e06666 !important;
+}
+
+/* Add !important to all border properties to ensure they override theme styles */
+.header-items .header_center form {
+    border: 1px solid #e06666 !important;
+    border-color: #e06666 !important;
+}
+
+/* Remove border from product cards on homepage */
+.card.bb-product-item {
+    border: none !important;
+    box-shadow: none !important;
+}

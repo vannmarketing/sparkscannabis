@@ -1,0 +1,32 @@
+/**
+ * Custom CSS for Mix & Match product display
+ * - Hides price column
+ * - Stretches product name column
+ * - Makes quantity box appropriately sized
+ */
+
+/* Hide price column in Mix & Match product table */
+.mix-and-match-container .mix-and-match-items table th:nth-child(3),
+.mix-and-match-container .mix-and-match-items table td:nth-child(3) {
+    display: none;
+}
+
+/* Stretch product name column */
+.mix-and-match-container .mix-and-match-items table th:nth-child(2),
+.mix-and-match-container .mix-and-match-items table td:nth-child(2) {
+    width: 70%;
+}
+
+/* Make quantity box appropriately sized */
+.mix-and-match-container .quantity-selector .form-control {
+    width: 60px !important;
+    text-align: center;
+    font-size: 16px;
+    padding: 4px;
+    height: auto;
+}
+
+/* Adjust button sizes in quantity selector */
+.mix-and-match-container .quantity-selector .btn {
+    padding: 0.25rem 0.5rem;
+}

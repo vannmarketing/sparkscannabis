@@ -1,0 +1,10 @@
+{
+    "id": "botble/mix-and-match",
+    "name": "Mix and Match",
+    "namespace": "Botble\\MixAndMatch\\",
+    "provider": "Botble\\MixAndMatch\\Providers\\MixAndMatchServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "1.0.0",
+    "description": "Mix and Match products for Botble CMS"
+}

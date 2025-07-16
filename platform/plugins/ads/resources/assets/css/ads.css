@@ -1,0 +1,22 @@
+.active-day-button {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
+    color: #333;
+    border-color: #ddd;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.active-day-button.active {
+    background-color: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+#active-days-container .form-hint {
+    margin-top: 8px;
+    color: #6c757d;
+    font-size: 0.875em;
+}

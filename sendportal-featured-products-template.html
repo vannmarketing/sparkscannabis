@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sparks Cannabis Featured Products</title>
+    <style type="text/css">
+        /* Reset styles */
+        body, p, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+            max-width: 100%;
+        }
+        table {
+            border-collapse: collapse !important;
+        }
+        /* Mobile styles */
+        @media screen and (max-width: 600px) {
+            .mobile-padding {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+            }
+            .mobile-stack {
+                display: block !important;
+                width: 100% !important;
+            }
+            .mobile-center {
+                text-align: center !important;
+            }
+            .product-image {
+                margin: 0 auto 15px auto !important;
+            }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f4;">
+    <!-- Main Container -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td align="center" style="padding: 20px 0;">
+                <!-- Email Container -->
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: 0 auto;">
+                    <!-- Header -->
+                    <tr>
+                        <td style="padding: 30px 20px; text-align: center; background-color: #4CAF50; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                            <img src="https://sparkscannabis.net/logo.png" alt="Sparks Cannabis" width="200" style="display: block; margin: 0 auto;">
+                        </td>
+                    </tr>
+                    
+                    <!-- Email Content -->
+                    <tr>
+                        <td style="padding: 30px 20px;" class="mobile-padding">
+                            <h1 style="color: #333333; margin-bottom: 20px; text-align: center;">Weekly Specials</h1>
+                            <p style="color: #666666; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">Hello {{ subscriber.first_name }},</p>
+                            <p style="color: #666666; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">We've handpicked some amazing featured products just for you this week. Check them out below!</p>
+                            
+                            <!-- Featured Products Section -->
+                            <div style="margin: 30px 0;">
+                                <!-- FEATURED_PRODUCTS_PLACEHOLDER -->
+                                <!-- This placeholder will be replaced with actual product content -->
+                                <!-- The following is example HTML structure that will be generated -->
+                                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                                    <tr>
+                                        <td>
+                                            <h2 style="color: #4CAF50; text-align: center; margin: 20px 0;">Featured Products</h2>
+                                        </td>
+                                    </tr>
+                                    <!-- Example Product 1 -->
+                                    <tr>
+                                        <td style="padding: 15px 0; border-bottom: 1px solid #e8e8e8;">
+                                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                <tr>
+                                                    <td width="30%" valign="top" style="padding-right: 15px; position: relative;" class="mobile-stack mobile-center">
+                                                        <span style="background-color: #ff6b6b; color: white; padding: 3px 8px; border-radius: 3px; font-size: 12px; position: absolute; top: 10px; right: 10px;">SALE</span>
+                                                        <img src="https://sparkscannabis.net/product1.jpg" alt="Product Name" width="100%" style="max-width: 150px; display: block; border: 0; border-radius: 5px;" class="product-image">
+                                                    </td>
+                                                    <td width="70%" valign="top" class="mobile-stack mobile-center">
+                                                        <h3 style="margin-top: 0; margin-bottom: 8px; color: #333333; font-size: 18px;">Premium Flower</h3>
+                                                        <p style="margin-top: 0; margin-bottom: 8px; color: #666666; font-size: 14px;">Our top-shelf premium flower, carefully selected for maximum potency and flavor...</p>
+                                                        <p style="margin-top: 0; margin-bottom: 12px; font-size: 16px;"><span style="text-decoration: line-through; color: #999; margin-right: 10px;">$45.00</span> <span style="color: #ff6b6b; font-weight: bold;">$39.99</span></p>
+                                                        <a href="https://sparkscannabis.net/products/premium-flower" style="background-color: #4CAF50; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; display: inline-block; font-size: 14px;">View Product</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- Example Product 2 -->
+                                    <tr>
+                                        <td style="padding: 15px 0; border-bottom: 1px solid #e8e8e8;">
+                                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                <tr>
+                                                    <td width="30%" valign="top" style="padding-right: 15px; position: relative;" class="mobile-stack mobile-center">
+                                                        <img src="https://sparkscannabis.net/product2.jpg" alt="Product Name" width="100%" style="max-width: 150px; display: block; border: 0; border-radius: 5px;" class="product-image">
+                                                    </td>
+                                                    <td width="70%" valign="top" class="mobile-stack mobile-center">
+                                                        <h3 style="margin-top: 0; margin-bottom: 8px; color: #333333; font-size: 18px;">Relaxing Edibles</h3>
+                                                        <p style="margin-top: 0; margin-bottom: 8px; color: #666666; font-size: 14px;">Delicious and effective edibles perfect for relaxation and stress relief...</p>
+                                                        <p style="margin-top: 0; margin-bottom: 12px; font-size: 16px;"><span style="font-weight: bold;">$24.99</span></p>
+                                                        <a href="https://sparkscannabis.net/products/relaxing-edibles" style="background-color: #4CAF50; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; display: inline-block; font-size: 14px;">View Product</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 15px 0; text-align: center;">
+                                            <a href="https://sparkscannabis.net/products" style="color: #4CAF50; text-decoration: underline; font-size: 14px;">View All Products</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- End of example structure -->
+                            </div>
+                            
+                            <p style="color: #666666; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">Don't miss out on these great deals! Our featured products are carefully selected for quality and value.</p>
+                            
+                            <!-- CTA Button -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 30px 0;">
+                                <tr>
+                                    <td align="center">
+                                        <a href="https://sparkscannabis.net/products" style="background-color: #4CAF50; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; display: inline-block; font-size: 16px; font-weight: bold;">Shop Now</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="color: #666666; font-size: 16px; line-height: 1.5;">Thank you for being a valued customer!</p>
+                            <p style="color: #666666; font-size: 16px; line-height: 1.5; margin-top: 20px;">Best regards,<br>The Sparks Cannabis Team</p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 20px; text-align: center; background-color: #f9f9f9; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; color: #666666; font-size: 14px;">
+                            <p>&copy; {{ date('Y') }} Sparks Cannabis. All rights reserved.</p>
+                            <p style="margin: 10px 0;">
+                                <a href="{{ unsubscribe_url }}" style="color: #4CAF50; text-decoration: none;">Unsubscribe</a> | 
+                                <a href="https://sparkscannabis.net/privacy-policy" style="color: #4CAF50; text-decoration: none;">Privacy Policy</a>
+                            </p>
+                            <p style="margin-top: 15px; font-size: 12px; color: #999999;">
+                                This email was sent to {{ subscriber.email }}.<br>
+                                Please add us to your address book to ensure our emails reach your inbox.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

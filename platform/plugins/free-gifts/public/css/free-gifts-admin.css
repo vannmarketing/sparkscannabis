@@ -1,0 +1,98 @@
+/* Admin styles for Free Gifts plugin */
+
+/* Center the form content */
+.gift-rule-form .form-body {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Make tabs more prominent */
+.gift-rule-form .nav-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Center the main form body and tabs */
+.gift-rule-form .main-form-body {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Force tabs to appear in main content */
+.gift-rule-form .meta-boxes .widget {
+    width: 100% !important;
+}
+
+.gift-rule-form .meta-boxes .widget.meta-boxes-sortable {
+    width: 100% !important;
+}
+
+.gift-rule-form .meta-boxes .widget .widget-body {
+    max-width: 100% !important;
+}
+
+/* Move tabs to main content */
+.gift-rule-form .meta-boxes .widget.meta-boxes-sortable:nth-child(2) {
+    width: 100% !important;
+    margin-right: 0 !important;
+    float: none !important;
+}
+
+/* Keep sidebar widgets in sidebar */
+.gift-rule-form .meta-boxes .widget.meta-boxes-sortable:first-child {
+    width: 300px !important;
+    float: right !important;
+}
+
+.gift-rule-form .nav-tabs .nav-item {
+    margin: 0 5px;
+}
+
+.gift-rule-form .nav-tabs .nav-link {
+    padding: 10px 20px;
+    border-radius: 4px 4px 0 0;
+    font-weight: 500;
+}
+
+.gift-rule-form .nav-tabs .nav-link.active {
+    background-color: #f8f9fa;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+/* Improve tab content spacing */
+.gift-rule-form .tab-content {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+}
+
+/* Improve form field spacing */
+.gift-rule-form .form-group {
+    margin-bottom: 20px;
+}
+
+/* Center the gift products table */
+.gift-products-form {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Make sure form fields use full width */
+.gift-rule-form .form-control {
+    width: 100%;
+}
+
+/* Ensure proper spacing in rows and columns */
+.gift-rule-form .row {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.gift-rule-form .col-md-6 {
+    padding-left: 10px;
+    padding-right: 10px;
+}

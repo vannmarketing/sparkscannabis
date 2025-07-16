@@ -1,0 +1,241 @@
+/* Mix and Match Frontend Styles */
+
+/* Product Detail Page */
+.mix-and-match-container {
+    margin-bottom: 30px;
+}
+
+.mix-and-match-container h4 {
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.mix-and-match-container table {
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.mix-and-match-container th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.mix-and-match-container .product-name {
+    font-weight: 500;
+}
+
+.mix-and-match-container .variation-attributes small {
+    color: #6c757d;
+    font-style: italic;
+}
+
+.mix-and-match-summary {
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.mix-and-match-summary .summary-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.mix-and-match-summary .summary-items {
+    margin-bottom: 10px;
+}
+
+/* Cart, Checkout, and Order Details Display Styles */
+.mix-match-items-list {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    border-left: 3px solid #5cb85c;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* Style for the bullet points in the text */
+.mix-match-items-list {
+    white-space: pre-line; /* Preserves line breaks */
+}
+
+/* Ensure consistent display across all pages */
+.checkout-page .mix-match-items-list,
+.order-detail-page .mix-match-items-list,
+.cart-page .mix-match-items-list {
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+
+/* Make sure the text is readable */
+.mix-match-items-list {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* List view styles */
+.mix-and-match-items.list-view {
+    margin-bottom: 20px;
+}
+
+.mix-and-match-items.list-view .table {
+    margin-bottom: 0;
+}
+
+.mix-and-match-items.list-view th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.mix-and-match-items.list-view .product-image {
+    text-align: center;
+}
+
+.mix-and-match-items.list-view .product-image img {
+    max-height: 60px;
+    width: auto;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.mix-and-match-items.list-view .product-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.mix-and-match-items.list-view .product-price {
+    color: #F27323;
+    font-weight: 500;
+}
+
+.mix-and-match-items.list-view .quantity-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mix-and-match-items.list-view .quantity-selector input {
+    width: 50px;
+    text-align: center;
+}
+
+.mix-and-match-items.list-view .quantity-selector button {
+    min-width: 30px;
+    padding: 0.25rem 0.5rem;
+}
+
+.summary {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.summary-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.validation-message {
+    margin-top: 10px;
+    color: #dc3545;
+}
+
+/* Mix and match items in cart */
+.mix-and-match-items {
+    margin-top: 10px;
+    padding: 12px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    font-size: 0.9em;
+    border: 1px solid #eee;
+}
+
+.mix-and-match-title {
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 0.95em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.mix-and-match-list {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+}
+
+.mix-and-match-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #eee;
+}
+
+.mix-and-match-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.mix-and-match-item-image {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.mix-and-match-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mix-and-match-item-details {
+    flex: 1;
+}
+
+.mix-and-match-item-name {
+    display: block;
+    font-weight: 500;
+    color: #333;
+}
+
+.mix-and-match-item-attributes {
+    display: block;
+    font-size: 0.85em;
+    color: #666;
+    font-style: italic;
+    margin-top: 2px;
+}
+
+.mix-and-match-item-qty {
+    display: block;
+    margin-top: 2px;
+    color: #888;
+    font-size: 0.9em;
+}
+
+/* Variation attribute styling */
+.variation-attributes {
+    margin-top: 3px;
+    font-size: 0.85em;
+    color: #666;
+}
+
+.variation-attributes small {
+    font-style: italic;
+}

@@ -1,0 +1,10 @@
+{
+    "id": "botble/membership",
+    "name": "Membership",
+    "namespace": "Botble\\Membership\\",
+    "provider": "Botble\\Membership\\Providers\\MembershipServiceProvider",
+    "author": "Tuan Nguyen",
+    "url": null,
+    "version": "1.0.0",
+    "description": "Membership Manager."
+}
