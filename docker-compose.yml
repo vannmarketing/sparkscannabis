@@ -44,7 +44,7 @@ services:
       MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-hello@example.com}
       MAIL_FROM_NAME: "${APP_NAME:-Laravel}"
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./:/var/www/html
       - /var/www/html/vendor
@@ -85,7 +85,7 @@ services:
       PMA_USER: root
       PMA_PASSWORD: rootpassword
     ports:
-      - "8081:80"
+      - "80:80"
     depends_on:
       - db
     networks:
