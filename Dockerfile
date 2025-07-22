@@ -1,43 +1,37 @@
 # syntax=docker/dockerfile:1
 
-FROM php:8.2-fpm-alpine AS base
+# Use PHP 8.2 with FPM and Debian Bullseye
+FROM php:8.2-fpm-bullseye
 
 # Install system dependencies
-RUN apk add --no-cache \
-    nginx \
-    bash \
-    curl \
+RUN apt-get update && apt-get install -y \
     git \
-    unzip \
-    libpng \
+    curl \
     libpng-dev \
-    libjpeg-turbo-dev \
-    freetype-dev \
-    libzip-dev \
-    oniguruma-dev \
-    icu-dev \
-    zlib-dev \
+    libonig-dev \
     libxml2-dev \
-    nodejs=18.20.2-r0 \
-    npm
+    zip \
+    unzip \
+    libzip-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libwebp-dev \
+    libxpm-dev \
+    libicu-dev \
+    nginx \
+    supervisor \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm \
+    && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql zip mbstring intl opcache calendar exif \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p /var/run/supervisor /var/log/supervisor
 
-# Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install \
-        pdo \
-        pdo_mysql \
-        zip \
-        gd \
-        mbstring \
-        exif \
-        pcntl \
-        bcmath \
-        intl \
-        xml \
-        opcache \
-        fileinfo \
-        tokenizer \
-        curl
+# Install Node.js 20 LTS
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest
+
+# Enable and configure PHP extensions (most are already installed in the base image)
+RUN php -m
 
 # Install Composer
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
@@ -45,17 +39,35 @@ COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy app files
+# Copy the entire application first (including local packages like platform/)
 COPY . .
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# Create all necessary directories with proper permissions
+RUN mkdir -p \
+    storage/app/public \
+    storage/framework/cache/data \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    bootstrap/cache \
+    && chown -R www-data:www-data \
+        storage \
+        bootstrap/cache \
+    && chmod -R 775 \
+        storage \
+        bootstrap/cache
+
+# Install PHP dependencies without running scripts first
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
+
+# Now run the post-install scripts
+RUN composer run-script post-autoload-dump
 
 # Install JS dependencies and build assets
-RUN npm install && npm run prod
+RUN npm ci && npm run prod
 
-# Publish CMS assets
-RUN php artisan cms:publish:assets --force
+# Publish Botble CMS assets
+RUN php artisan cms:publish:assets
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
@@ -64,14 +76,28 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 # Create storage symlink
 RUN php artisan storage:link || true
 
-# Optimize Laravel
-RUN php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan event:cache
+# Cache configuration and routes (skip view:cache as it may require database access)
+RUN php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan event:cache
 
 # Nginx config
 COPY ./docker/nginx.conf /etc/nginx/nginx.conf
 
+# Create supervisor directory if it doesn't exist
+RUN mkdir -p /etc/supervisor/conf.d/
+
+# Copy supervisor config
+COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+WORKDIR /var/www/html
+
 # Expose port 80
 EXPOSE 80
 
-# Start Nginx and PHP-FPM
-CMD ["/bin/sh", "-c", "php-fpm -D && nginx -g 'daemon off;'"] 
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost/health || exit 1
+
+# Start supervisord
+CMD ["supervisord", "-n", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

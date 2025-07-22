@@ -1,0 +1,60 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Dependencies
+/vendor
+/node_modules
+
+# Build files
+/public/build
+/public/hot
+/public/storage
+public/js
+public/css
+public/mix-manifest.json
+
+# Storage
+/storage/*.key
+/storage/app/public/*
+/storage/debugbar/*
+/storage/framework/*
+/storage/logs/*
+
+# Tests
+/coverage
+/phpunit.xml
+/phpunit.xml.dist
+.phpunit.result.cache
+
+# IDE
+.idea
+.vscode
+*.sublime-*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Local development
+Homestead.json
+Homestead.yaml
+Vagrantfile
+
+# Logs
+*.log
+
+# Local env files
+.env.local
+.env.*.local
