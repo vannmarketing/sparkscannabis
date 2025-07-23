@@ -4,6 +4,7 @@
 FROM node:20 AS node_modules
 WORKDIR /app
 COPY package.json package-lock.json ./
+COPY platform ./platform
 RUN npm ci
 
 # 2. Final app image
