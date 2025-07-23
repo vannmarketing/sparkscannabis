@@ -18,7 +18,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 WORKDIR /app
 COPY composer.json composer.lock ./
 COPY platform ./platform
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
 
 # 2. Build node_modules
 FROM node:20 AS node_modules
@@ -41,6 +41,7 @@ WORKDIR /var/www/html
 COPY --from=vendor /app/vendor ./vendor
 COPY --from=node_modules /app/node_modules ./node_modules
 COPY . .
+RUN composer run-script post-autoload-dump
 RUN npm run prod
 RUN php artisan config:cache && php artisan route:cache && php artisan event:cache && php artisan storage:link || true
 
