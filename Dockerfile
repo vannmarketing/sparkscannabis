@@ -12,27 +12,16 @@ RUN npm ci
 
 FROM php:8.2-fpm
 
-# Install system dependencies
+# Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
-    git \
-    curl \
     libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libzip-dev \
     libonig-dev \
     libxml2-dev \
-    zip \
-    unzip \
-    libzip-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libwebp-dev \
-    libxpm-dev \
-    libicu-dev \
-    nginx \
-    supervisor \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp --with-xpm \
-    && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql zip mbstring intl opcache calendar exif \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /var/run/supervisor /var/log/supervisor
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd zip calendar
 
 # Install Node.js 20 LTS
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
