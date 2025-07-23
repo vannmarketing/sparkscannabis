@@ -23,6 +23,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 WORKDIR /var/www/html
 COPY . .
 COPY --from=node_modules /app/node_modules ./node_modules
+
+# Ensure cache and storage directories exist and are writable
+RUN mkdir -p storage/app/public storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
+
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 RUN npm run prod
 RUN php artisan config:cache && php artisan route:cache && php artisan event:cache && php artisan storage:link || true
