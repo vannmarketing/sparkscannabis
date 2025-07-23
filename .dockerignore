@@ -9,7 +9,7 @@
 !.env.example
 
 # Dependencies
-/node_modules
+
 
 # Build files
 /public/build
