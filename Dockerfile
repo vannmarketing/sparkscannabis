@@ -1,6 +1,15 @@
 # syntax=docker/dockerfile:1
 
-# Use PHP 8.2 with FPM and Debian Bullseye
+FROM composer:2.7 AS vendor
+WORKDIR /app
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+FROM node:20 AS node_modules
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+
 FROM php:8.2-fpm
 
 # Install system dependencies
