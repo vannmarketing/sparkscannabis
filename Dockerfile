@@ -1,7 +1,17 @@
 # syntax=docker/dockerfile:1
 
 # Use PHP 8.2 with FPM and Debian Bullseye
-FROM php:8.2-fpm-bullseye
+FROM composer:2.7 as vendor
+WORKDIR /app
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+FROM node:20 as node_modules
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+
+FROM php:8.2-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -38,6 +48,8 @@ COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www/html
+COPY --from=vendor /app/vendor ./vendor
+COPY --from=node_modules /app/node_modules ./node_modules
 
 # Copy the entire application first (including local packages like platform/)
 COPY . .
@@ -90,8 +102,6 @@ RUN mkdir -p /etc/supervisor/conf.d/
 # Copy supervisor config
 COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-WORKDIR /var/www/html
-
 # Expose port 80
 EXPOSE 80
 
@@ -101,3 +111,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 # Start supervisord
 CMD ["supervisord", "-n", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+

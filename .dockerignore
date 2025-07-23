@@ -1,59 +1,19 @@
-# Git
-.git
-.gitignore
-.gitattributes
-
-# Environment files
+node_modules
+vendor
+npm-debug.log
+yarn-error.log
+.DS_Store
 .env
 .env.*
-!.env.example
-
-# Dependencies
-
-
-# Build files
-/public/build
-/public/hot
-/public/storage
-public/js
-public/css
-public/mix-manifest.json
-
-# Storage
-/storage/*.key
-/storage/app/public/*
-/storage/debugbar/*
-/storage/framework/*
-/storage/logs/*
-
-# Tests
-/coverage
-/phpunit.xml
-/phpunit.xml.dist
-.phpunit.result.cache
-
-# IDE
 .idea
 .vscode
-*.sublime-*
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Local development
-Homestead.json
-Homestead.yaml
-Vagrantfile
-
-# Logs
-*.log
-
-# Local env files
-.env.local
-.env.*.local
+*.iml
+storage/*.key
+storage/app/public
+storage/debugbar
+storage/framework/cache
+storage/framework/sessions
+storage/framework/testing
+storage/framework/views
+storage/logs
+public/storage
