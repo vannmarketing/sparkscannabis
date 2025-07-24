@@ -50,11 +50,11 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
-# Generate application key if not exists
-RUN if [ ! -f .env ]; then \
-        cp .env.example .env; \
-    fi \
-    && php artisan key:generate --force
+# Copy production environment file
+COPY .env.production .env
+
+# Generate application key if not set
+RUN php artisan key:generate --force
 
 # Optimize application
 RUN php artisan config:cache \
