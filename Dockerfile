@@ -37,5 +37,5 @@ RUN npm run prod
 RUN php artisan config:cache && php artisan route:cache && php artisan event:cache && php artisan storage:link || true
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD curl -f http://localhost:8083/ || exit 1
+  CMD curl -f http://localhost:8080/ || exit 1
 
