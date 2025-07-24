@@ -1,73 +1,40 @@
-# Use official PHP 8.2 Apache image
-FROM php:8.2-fpm
+# syntax=docker/dockerfile:1
 
-# Install system dependencies
+# 1. Build node_modules
+FROM node:20 AS node_modules
+WORKDIR /app
+COPY package.json package-lock.json ./
+COPY platform ./platform
+RUN npm ci
+RUN apt-get update && apt-get install -y wget && rm -rf /var/lib/apt/lists/*
+
+# 2. Final app image
+FROM php:8.2-fpm
 RUN apt-get update && apt-get install -y \
-    git \
-    curl \
     libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libzip-dev \
     libonig-dev \
     libxml2-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libzip-dev \
-    zip \
+    curl \
     unzip \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Configure and install ALL required PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
-        pdo_mysql \
-        mbstring \
-        exif \
-        pcntl \
-        bcmath \
-        gd \
-        zip \
-        calendar \
-        soap \
-        xml
-
-# Enable Apache rewrite module
-RUN a2enmod rewrite
-
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Set working directory
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd zip calendar
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 WORKDIR /var/www/html
-
-# Copy application files
 COPY . .
+COPY --from=node_modules /app/node_modules ./node_modules
 
-# Set Composer environment variables
-ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV COMPOSER_NO_INTERACTION=1
+# Ensure cache and storage directories exist and are writable
+RUN mkdir -p storage/app/public storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
-# Install Composer dependencies with all the flags to avoid issues
-RUN composer install \
-    --no-interaction \
-    --optimize-autoloader \
-    --no-dev \
-    --ignore-platform-req=ext-gd \
-    --ignore-platform-req=ext-calendar
-
-# Set proper permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage \
-    && chmod -R 755 /var/www/html/bootstrap/cache
-
-# Expose port 80
-EXPOSE 8080
-
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 RUN npm run prod
 RUN php artisan config:cache && php artisan route:cache && php artisan event:cache && php artisan storage:link || true
-
-# Run the application
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
-
 
 
 
