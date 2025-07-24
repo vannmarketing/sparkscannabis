@@ -13,7 +13,7 @@ services:
         condition: service_healthy
     environment:
       APP_ENV: production
-      APP_DEBUG: 'true'
+      APP_DEBUG: 'false'
       APP_URL: ${APP_URL:-http://localhost:8080}
       APP_KEY: ${APP_KEY}
       # Database
@@ -39,15 +39,20 @@ services:
       MAIL_ENCRYPTION: ${MAIL_ENCRYPTION:-null}
       MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-hello@example.com}
       MAIL_FROM_NAME: "${APP_NAME:-Laravel}"
-    expose:
-      - "9000"
+    ports:
+      - "8080:8080"
     volumes:
-      - ./:/var/www/html
-      - /var/www/html/vendor
-      - /var/www/html/node_modules
+      - ./storage:/var/www/html/storage
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache
     networks:
       - app-network
     working_dir: /var/www/html
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   nginx:
     image: nginx:1.25-alpine
@@ -63,7 +68,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8083/"]
+      test: ["CMD", "curl", "-f", "http://localhost/"]
       interval: 30s
       timeout: 10s
       retries: 3
