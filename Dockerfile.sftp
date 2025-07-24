@@ -1,0 +1,21 @@
+# SFTP Server Dockerfile
+FROM atmoz/sftp:alpine
+
+# Copy SFTP configuration
+COPY docker/sftp/users.conf /etc/sftp/users.conf
+
+# Create upload directories
+RUN mkdir -p /home/sparksftp/uploads \
+    && mkdir -p /home/sparksftp/downloads \
+    && mkdir -p /home/sparksftp/shared
+
+# Set proper permissions
+RUN chown -R 1000:100 /home/sparksftp/ \
+    && chmod -R 755 /home/sparksftp/
+
+# Expose SFTP port
+EXPOSE 22
+
+# Use the default SFTP entrypoint with user configuration
+ENTRYPOINT ["/entrypoint"]
+CMD ["sparksftp:sp@rksftppass:1000:100:/home/sparksftp"]

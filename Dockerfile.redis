@@ -1,0 +1,18 @@
+# Redis Dockerfile
+FROM redis:7-alpine
+
+# Copy custom Redis configuration
+COPY docker/redis/redis.conf /usr/local/etc/redis/redis.conf
+
+# Create redis user and set permissions
+RUN addgroup -S redis && adduser -S redis -G redis \
+    && chown redis:redis /usr/local/etc/redis/redis.conf
+
+# Set working directory
+WORKDIR /data
+
+# Expose Redis port
+EXPOSE 6379
+
+# Start Redis with custom configuration
+CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]

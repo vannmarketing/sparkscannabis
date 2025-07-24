@@ -1,0 +1,22 @@
+# phpMyAdmin Dockerfile
+FROM phpmyadmin/phpmyadmin:latest
+
+# Copy custom phpMyAdmin configuration
+COPY docker/phpmyadmin/config.user.inc.php /etc/phpmyadmin/config.user.inc.php
+
+# Set environment variables
+ENV PMA_ARBITRARY=1
+ENV PMA_HOST=mysql
+ENV PMA_PORT=3306
+ENV PMA_USER=root
+ENV PMA_PASSWORD=rootpassword
+ENV UPLOAD_LIMIT=100M
+
+# Create custom themes directory (optional)
+RUN mkdir -p /var/www/html/themes/custom
+
+# Expose phpMyAdmin port
+EXPOSE 80
+
+# Use the default phpMyAdmin entrypoint
+CMD ["apache2-foreground"]

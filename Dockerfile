@@ -1,78 +1,95 @@
-# syntax=docker/dockerfile:1
-
-# 1. Build node_modules
-FROM node:20 AS node_modules
-WORKDIR /app
-COPY package.json package-lock.json ./
-COPY platform ./platform
-RUN npm ci
-
-# 2. Composer dependencies
-FROM composer:2 AS vendor
-WORKDIR /app
-COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-scripts --prefer-dist --optimize-autoloader --no-interaction
-
-# 3. Final app image
+# Laravel Application Dockerfile
 FROM php:8.2-fpm
 
-# Install system dependencies
+# Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
+    git \
+    curl \
     libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libzip-dev \
     libonig-dev \
     libxml2-dev \
-    curl \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libzip-dev \
+    libicu-dev \
+    zip \
     unzip \
-    wget \
+    nginx \
+    supervisor \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd zip calendar pdo_mysql mbstring exif pcntl bcmath
+    && docker-php-ext-install -j$(nproc) \
+        pdo_mysql \
+        mbstring \
+        exif \
+        pcntl \
+        bcmath \
+        gd \
+        zip \
+        calendar \
+        intl \
+        soap \
+        xml \
+        opcache \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g npm
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Install Node.js for asset compilation
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy application files
+# Copy composer files first for better caching
+COPY composer.json composer.lock ./
+
+# Set Composer environment variables
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV COMPOSER_NO_INTERACTION=1
+
+# Install PHP dependencies
+RUN composer install \
+    --no-scripts \
+    --no-autoloader \
+    --no-dev \
+    --prefer-dist \
+    --ignore-platform-reqs
+
+# Copy package.json and install Node dependencies
+COPY package*.json ./
+RUN npm install --production
+
+# Copy application code
 COPY . .
 
-# Copy built assets from previous stages
-COPY --from=vendor /app/vendor ./vendor
-COPY --from=node_modules /app/node_modules ./node_modules
+# Complete Composer setup
+RUN composer dump-autoloader --optimize
 
-# Set permissions
+# Build assets (if applicable)
+RUN npm run build || npm run production || echo "No build script found"
+
+# Set proper permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
-# Copy production environment file
-COPY .env.production .env
+# Copy Nginx configuration
+COPY docker/nginx.conf /etc/nginx/sites-available/default
+RUN rm /etc/nginx/sites-enabled/default \
+    && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 
-# Generate application key if not set
-RUN php artisan key:generate --force
+# Copy supervisor configuration
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Optimize application
-RUN php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache \
-    && php artisan storage:link
+# Create necessary directories
+RUN mkdir -p /var/log/supervisor \
+    && mkdir -p /run/php
 
-# Build frontend assets
-RUN npm run prod
+# Expose port 80
+EXPOSE 80
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
-
-EXPOSE 8080
-
-# Start the application
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
-
-
-
+# Start supervisor to manage both PHP-FPM and Nginx
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

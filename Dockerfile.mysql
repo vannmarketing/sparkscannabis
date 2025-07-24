@@ -1,0 +1,23 @@
+# MySQL Database Dockerfile
+FROM mysql:8.0
+
+# Set environment variables
+ENV MYSQL_DATABASE=sparks_cannabis
+ENV MYSQL_USER=sparks
+ENV MYSQL_PASSWORD=password
+ENV MYSQL_ROOT_PASSWORD=rootpassword
+
+# Copy custom MySQL configuration
+COPY docker/mysql/my.cnf /etc/mysql/conf.d/custom.cnf
+
+# Copy initialization scripts
+COPY docker/mysql/init/ /docker-entrypoint-initdb.d/
+
+# Set proper permissions
+RUN chmod -R 755 /docker-entrypoint-initdb.d/
+
+# Expose MySQL port
+EXPOSE 3306
+
+# Use the default MySQL entrypoint
+CMD ["mysqld"]

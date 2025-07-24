@@ -1,59 +1,54 @@
-# Git
-.git
-.gitignore
-.gitattributes
-
-# Environment files
-.env
-.env.*
-!.env.example
-
-# Dependencies
-vendor/
-
-# Build files
-/public/build
+# Laravel specific
+/vendor
+/node_modules
 /public/hot
 /public/storage
-public/js
-public/css
-public/mix-manifest.json
-
-# Storage
 /storage/*.key
-/storage/app/public/*
-/storage/debugbar/*
-/storage/framework/*
 /storage/logs/*
-
-# Tests
-/coverage
-/phpunit.xml
-/phpunit.xml.dist
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+.env
+.env.backup
 .phpunit.result.cache
-
-# IDE
-.idea
-.vscode
-*.sublime-*
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Local development
 Homestead.json
 Homestead.yaml
-Vagrantfile
+npm-debug.log
+yarn-error.log
 
-# Logs
-*.log
+# Development files
+.git
+.gitignore
+README.md
+.editorconfig
+.gitattributes
+.styleci.yml
+phpunit.xml
+webpack.mix.js
+package-lock.json
+yarn.lock
 
-# Local env files
-.env.local
-.env.*.local
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker files (except the ones we need)
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Testing
+/tests
+/coverage
+.phpunit.cache
+
+# Documentation
+/docs
+*.md
