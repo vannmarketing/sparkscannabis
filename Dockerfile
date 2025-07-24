@@ -32,6 +32,13 @@ COPY --from=node_modules /app/node_modules ./node_modules
 RUN mkdir -p storage/app/public storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
+EXPOSE 8080
+
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1
+
 RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 RUN npm run prod
 RUN php artisan config:cache && php artisan route:cache && php artisan event:cache && php artisan storage:link || true
