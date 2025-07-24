@@ -6,6 +6,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 COPY platform ./platform
 RUN npm ci
+RUN apt-get update && apt-get install -y wget && rm -rf /var/lib/apt/lists/*
 
 # 2. Final app image
 FROM php:8.2-fpm
