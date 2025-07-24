@@ -36,6 +36,5 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-di
 RUN npm run prod
 RUN php artisan config:cache && php artisan route:cache && php artisan event:cache && php artisan storage:link || true
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD curl -f http://localhost:8080/ || exit 1
+
 
