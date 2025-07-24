@@ -1,5 +1,5 @@
 # Use official PHP 8.2 Apache image
-FROM php:8.2-apache
+FROM php:8.2-fpm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -59,17 +59,15 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
     && chmod -R 755 /var/www/html/bootstrap/cache
 
-# Configure Apache for Laravel
-RUN echo '<VirtualHost *:80>' > /etc/apache2/sites-available/000-default.conf && \
-    echo '    DocumentRoot /var/www/html/public' >> /etc/apache2/sites-available/000-default.conf && \
-    echo '    <Directory /var/www/html/public>' >> /etc/apache2/sites-available/000-default.conf && \
-    echo '        AllowOverride All' >> /etc/apache2/sites-available/000-default.conf && \
-    echo '        Require all granted' >> /etc/apache2/sites-available/000-default.conf && \
-    echo '    </Directory>' >> /etc/apache2/sites-available/000-default.conf && \
-    echo '</VirtualHost>' >> /etc/apache2/sites-available/000-default.conf
-
 # Expose port 80
-EXPOSE 80
+EXPOSE 8080
 
-# Start Apache
-CMD ["apache2-foreground"]
+RUN npm run prod
+RUN php artisan config:cache && php artisan route:cache && php artisan event:cache && php artisan storage:link || true
+
+# Run the application
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
+
+
+
+
